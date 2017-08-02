@@ -1,0 +1,54 @@
+#include "debug.h"
+#include "../toy.h"
+#include <time.h>
+
+//assumes little endian
+//stackoverflow.com/questions/111928
+void fprintBits(size_t const size, void const * const ptr, FILE *file_pointer)
+{
+    //Beispiel:
+    //printBits(sizeof(*ram), ram);
+    unsigned char *b = (unsigned char*) ptr;
+    unsigned char byte;
+    int i, j;
+
+    for (i=size-1;i>=0;i--)
+    {
+        for (j=7;j>=0;j--)
+        {
+            byte = (b[i] >> j) & 1;
+            fprintf(file_pointer,"%u", byte);
+        }
+    }
+    fputs("\n",file_pointer);
+}
+
+void makeHexDump(bool base_2, uint16_t ram[])
+{
+    time_t timer;
+    struct tm *tm_timer;
+    char timestamp[32];
+    FILE *fp;
+
+    time(&timer);
+    tm_timer=localtime(&timer);
+    if(strftime(timestamp,sizeof(timestamp),"coredump_%d_%b_%y_%T.txt",tm_timer)==0)
+    {
+        fprintf(stderr,"Buffer for system-time fault! hexdump canceled\n");
+        return;
+    }
+
+    if(!(fp=fopen(timestamp,"wb")))
+    {
+        fprintf(stderr,"File system access failed, hexdump canceled\n");
+        return;
+    }
+    if(base_2)
+    {
+        for(int i=0; i<RAM_SIZE; i++) fprintBits(sizeof(uint16_t),ram+i,fp);
+    }
+    else
+        for(int i=1; i<=RAM_SIZE; i++) fprintf(fp,"%X\n",ram[i]);
+
+    fclose(fp);
+}
