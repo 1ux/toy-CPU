@@ -8,8 +8,9 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
     FILE *fp;
     int j=0;
-    char tempS[CPU_WORD_SIZE+1];
-//    char *end;
+    char tempS[CPU_WORD_SIZE+1]; //+1 for "\0"	
+
+    for(int i=0;i<RAM_SIZE;i++) ram[i]=0;
 
     if(argc<2) 
     {
@@ -24,7 +25,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
     if(!(fp=fopen(argv[1],"rb")))
     {
-        fprintf(stderr,"%s","input file corrupted\n");
+        fprintf(stderr,"%s","open input stream fault !\n");
         return -1;
     }
     // initialise Toy-RAM
