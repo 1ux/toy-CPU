@@ -58,3 +58,12 @@ uint8_t get_opcode(uint16_t instruction)
     return opcode;
 }
 
+int find_data(uint16_t instruction)
+{
+    int instr;
+    if(instruction > 32767) instr = -1;
+    else instr=instruction & 4095;
+    return instr;
+}
+
+    
