@@ -9,7 +9,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     FILE *fp;
     int j=0;
     char tempS[CPU_WORD_SIZE+1];
-    char *end;
+//    char *end;
 
     if(argc<2) 
     {
@@ -42,7 +42,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
             }
         }
         tempS[CPU_WORD_SIZE]='\0';
-        ram[j]=strtoul(tempS,&end,2);
+        ram[j]=strtoul(tempS,NULL,2);
         j++;
     }while(tempS[0]!=EOF);
 
