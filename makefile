@@ -1,8 +1,8 @@
 #-------------Makro-Part------------------
 CC = gcc
-CFLAGS = -Wall -std=c99 
+CFLAGS = -Wall -pedantic -std=c99 
 LDFLAGs =
-DEBUG = 
+DEBUG = -DNDEBUG 
 
 
 VPATH = src src/debug
@@ -21,5 +21,4 @@ debug.o : debug.c debug.h
 	$(CC) $(DEBUG) $(CFLAGS) -o $@ -c $<
 
 clean : 
-	rm -f *.o
-
+	rm -f *.o coredump*.toy

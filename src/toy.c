@@ -5,7 +5,6 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 {
 
     //open Input Stream
-
     FILE *fp;
     int j=0;
     char tempS[CPU_WORD_SIZE+1]; //+1 for "\0"	
@@ -66,4 +65,29 @@ int find_data(uint16_t instruction)
     return instr;
 }
 
-    
+bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
+{
+
+    //vorsicht uint16 und Zweierkomplement noch nicht stringent !!!
+    //Vorsicht bool ops bei sigend int typs sind undefiniert !
+   static uint16_t accu;
+    switch(op_code)
+    {
+        case 0: ram[data_addr]=accu; break;
+        case 1: accu=ram[data_addr]; break;
+//        case 2: if(!accu) break;
+        case 3: accu=accu + ram[data_addr]; break;
+        case 4: accu=accu - ram[data_addr]; break;
+        case 5: accu=accu | ram[data_addr]; break;
+        case 6: accu=accu & ram[data_addr]; break;
+        case 7: accu=accu & ram[data_addr]; break;
+        case 8: break;
+        case 9: break;
+        case 10: break;
+        case 11: break;
+        case 12: break;
+        case 13: break;
+        case 14: break;
+        case 15: break;
+}
+
