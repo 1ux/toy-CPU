@@ -2,7 +2,7 @@
 #define TOY_H
 
 #include <stdio.h>
-#include <stdint.h>
+#include <inttypes.h>
 #include <stdbool.h>
 #include <stdlib.h>
 

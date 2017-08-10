@@ -71,23 +71,28 @@ bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
     //vorsicht uint16 und Zweierkomplement noch nicht stringent !!!
     //Vorsicht bool ops bei sigend int typs sind undefiniert !
    static uint16_t accu;
+   bool jump=false;
+
     switch(op_code)
     {
-        case 0: ram[data_addr]=accu; break;
-        case 1: accu=ram[data_addr]; break;
-//        case 2: if(!accu) break;
-        case 3: accu=accu + ram[data_addr]; break;
-        case 4: accu=accu - ram[data_addr]; break;
-        case 5: accu=accu | ram[data_addr]; break;
-        case 6: accu=accu & ram[data_addr]; break;
-        case 7: accu=accu & ram[data_addr]; break;
-        case 8: break;
-        case 9: break;
-        case 10: break;
-        case 11: break;
-        case 12: break;
-        case 13: break;
-        case 14: break;
-        case 15: break;
+        case 0: ram[data_addr] = accu;              break; //STORE
+        case 1: accu = ram[data_addr];              break; //LOAD
+        case 2: jump = ((accu==0) ? true : false);  break; //JMPZ
+        case 3: accu = accu + ram[data_addr];       break; //ADD
+        case 4: accu = accu - ram[data_addr];       break; //SUB
+        case 5: accu = accu | ram[data_addr];       break; //OR
+        case 6: accu = accu & ram[data_addr];       break; //AND
+        case 7: accu = accu ^ ram[data_addr];       break; //XOR
+        case 8: accu = ~accu;                       break; //NOT
+        case 9: accu++;                             break; //INC
+        case 10: accu--;                            break; //DEC
+        case 11: accu = 0;                          break; //ZERO
+        case 12: ;                                  break; //NOP
+        case 13: ;                                  break; //NOP
+        case 14: ;                                  break; //NOP
+        case 15: ;                                  break; //NOP
+    }
+        printf("ACCU: %"PRIu16 "\n",accu);
+        return jump;
 }
 
