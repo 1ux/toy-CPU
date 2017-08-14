@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define CPU_TYPE "Koopman_TOY_CPU"
 #define RAM_SIZE 4096 
 #define CPU_WORD_SIZE 16
 
