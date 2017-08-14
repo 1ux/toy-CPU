@@ -18,12 +18,11 @@ int main(int argc, char *argv[])
     int         quit='n';
     bool        run = true;
 
-    printf("\n+++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
-    " wite %zu x %zu RAM.+\n+++++++++++++++++++++++++++++++++++++++++++\n\n"
+    printf("\n+++++++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
+    " wite %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
     ,(sizeof(ram)/sizeof(ram[0])),sizeof(ram[0])*8);
     
     if(initialise_ram(ram,argc,argv)==-1) return 1;
-
 
     while(run && pc<(RAM_SIZE-1))
     {
@@ -31,15 +30,22 @@ int main(int argc, char *argv[])
         op_code = get_opcode(ir);
         data_addr=find_data(ir);
 
-        printf("Inst: ");
+        //Handele user output
+        printf("\ninstruction: ");
         fprintBits(sizeof(*ram), ram+pc,stdout);
-        printf("OP Code: %"PRIu8" ",op_code);
-        printf("Adresse: %d\n",data_addr);
-
-        if(execute(op_code,data_addr,ram))
-            pc=find_data(ram[pc]);              //jump if ACCU is ZERO
+        printf("OP Code: %"PRIu8"\t",op_code);
+        printf("Adresse: %u\n",data_addr);
+        printf("\ninstruction result:\n");
+        //CPU control flow
+        if(execute(op_code,data_addr,ram)) //jump if ALU says 
+            pc=find_data(ram[pc]); 
         else pc++;
-        printf("(n)ext step or (q)uit or (c)oredump ?\n");
+
+        //Handele user output
+        printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
+        printf("\n(n)ext step or (q)uit or (c)oredump ?\n");
+
+        //handel program flow
         while((quit = getchar()) != '\n' && quit != EOF)
         {
             if(quit == 'c') makeHexDump(true,ram);
@@ -47,8 +53,5 @@ int main(int argc, char *argv[])
             else if(quit == 'q') run = false;
         }
     }
- 
-
-
     return 0;
 }

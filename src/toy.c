@@ -65,6 +65,18 @@ int find_data(uint16_t instruction)
     return instr;
 }
 
+int get2compl(uint16_t value)
+{
+    int sign_value = value;
+    if(value>32767)
+    {
+        value=(~value)+1;
+        sign_value = value*(-1);
+    }    
+    return sign_value;
+}
+
+
 bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
 {
 
@@ -92,7 +104,7 @@ bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
         case 14: ;                                  break; //NOP
         case 15: ;                                  break; //NOP
     }
-        printf("ACCU: %"PRIu16 "\n",accu);
+        printf("ACCU: %d\n",get2compl(accu));  // not good place for it !
         return jump;
 }
 
