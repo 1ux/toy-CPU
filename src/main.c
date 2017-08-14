@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     uint8_t     op_code;
     uint16_t    pc = 0;
     int         data_addr=0;
-    char        quit;
+    int         quit='n';
     bool        run = true;
 
     if(initialise_ram(ram,argc,argv)==-1) return 1;
@@ -33,9 +33,12 @@ int main(int argc, char *argv[])
             pc=find_data(ram[pc]);              //jump if ACCU is ZERO
         else pc++;
         printf("(n)ext step or (q)uit or (c)oredump ?\n");
-        scanf("%c",&quit);
-        if(quit == 'c') makeHexDump(true,ram);
-        else if(quit == 'q') run = false;
+        while((quit = getchar()) != '\n' && quit != EOF)
+        {
+            if(quit == 'c') makeHexDump(true,ram);
+                
+            else if(quit == 'q') run = false;
+        }
     }
  
 
