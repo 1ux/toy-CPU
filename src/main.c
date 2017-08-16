@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
         //Handele user output
         printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
-        printf("\n(n)ext step or (q)uit or (c)oredump ?\n");
+        printf("\x1b[32m \n(n)ext step or (q)uit or (c)oredump ?\n \x1b[0m");
 
         //handel program flow
         while((quit = getchar()) != '\n' && quit != EOF)
