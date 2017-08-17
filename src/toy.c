@@ -58,12 +58,11 @@ uint8_t get_opcode(uint16_t instruction)
     return opcode;
 }
 
-int find_data(uint16_t instruction)
+uint16_t find_data(uint16_t instruction)
 {
-    int instr;
-    if(instruction > 32767) instr = -1;
-    else instr=instruction & 4095;
-    return instr;
+    uint16_t operand;
+    operand = instruction & 4095;
+    return operand;
 }
 
 int get2compl(uint16_t value)
@@ -78,7 +77,7 @@ int get2compl(uint16_t value)
 }
 
 
-bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
+bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump if true
 {
     //Vorsicht: bool ops bei sigend int typs sind nach c99 undefiniert !
    static uint16_t accu;
