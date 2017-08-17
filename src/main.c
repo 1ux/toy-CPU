@@ -42,7 +42,8 @@ int main(int argc, char *argv[])
         //CPU control flow
         if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says 
             pc=find_data(ram[pc]); 
-        else pc++;
+        else pc++; 
+        if(pc>4095) pc = pc % 4096;         //TOY can only address 12 Bit
 
         //Handele user output
         printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
