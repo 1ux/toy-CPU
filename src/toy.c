@@ -1,5 +1,36 @@
 #include "toy.h"
 
+void print_instructionSet(void)
+{
+    printf("Boot process aborted!\n");
+    printf("TOY-CPU Instruction Set:\n\n");
+    printf("OP_Code 0 (0000b):\t   STORE<12 BIT ADDRESS>\n");
+    printf("OP_Code 1 (0001b):\t   LOAD\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 2 (0010b):\t   JMPZ\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 3 (0011b):\t   ADD\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 4 (0100b):\t   SUB\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 5 (0101b):\t   OR\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 6 (0110b):\t   AND\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 7 (0111b):\t   XOR\t<12 BIT ADDRESS>\n");
+    printf("OP_Code 8 (1000b):\t   NOT\n");
+    printf("OP_Code 9 (1001b):\t   INC\n");
+    printf("OP_Code 10 (1010b):\t   DEC\n");
+    printf("OP_Code 11 (1011b):\t   ZERO\n");
+    printf("OP_Code 12 (1100b):\t   NOP\n");
+    printf("OP_Code 13 (1101b):\t   NOP\n");
+    printf("OP_Code 14 (1110b):\t   NOP\n");
+    printf("OP_Code 15 (1111b):\t   NOP\n\n");
+
+    printf("BIT\t 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0\n"
+            "\t--------------------------------------\n"
+            "\t|  OP-CODE  |\t\tADDRESS\t     |\n"
+            "\t--------------------------------------\n\n");
+    printf("This machine has the following registers:\n"
+            "16 BIT Instruction Register(4 BIT OP, 12 BIT Adr)\n"
+            "16 BIT Accumulator\n"
+            "12 BIT Program Counter\n");
+}
+
 //gibt Anzahl der erfolgreich gelesenen Maschinenworte zurück(-1 im Fehlerfall).
 int initialise_ram(uint16_t *ram, int argc, char **argv )
 {
@@ -14,7 +45,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     if(argc<2) 
     {
         fprintf(stderr,"%s","no \".toy\" input file!\n" 
-                "interpretation terminated.\n");
+                "interpretation terminated. (press -h for help)\n");
         return -1;
     }
     if(argc >2)
@@ -23,11 +54,18 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
         return -1;
     }
 
+    if(strcmp(argv[1],"-h")==0)
+    {
+      print_instructionSet();
+      return -1;
+    }
+
     if(!(fp=fopen(argv[1],"rb")))
     {
         fprintf(stderr,"%s","open input stream fault !\n");
         return -1;
     }
+    
     // initialise Toy-RAM
 
     do
