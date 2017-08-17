@@ -13,7 +13,8 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
     if(argc<2) 
     {
-        fprintf(stderr,"%s","no \".toy\" input file!\n");
+        fprintf(stderr,"%s","no \".toy\" input file!\n" 
+                "interpretation terminated.\n");
         return -1;
     }
     if(argc >2)
@@ -79,9 +80,7 @@ int get2compl(uint16_t value)
 
 bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump when 1
 {
-
-    //vorsicht uint16 und Zweierkomplement noch nicht stringent !!!
-    //Vorsicht bool ops bei sigend int typs sind undefiniert !
+    //Vorsicht: bool ops bei sigend int typs sind nach c99 undefiniert !
    static uint16_t accu;
    bool jump=false;
 
