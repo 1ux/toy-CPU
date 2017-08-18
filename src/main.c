@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
         if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says 
             pc=find_data(ram[pc]); 
         else pc++; 
-        if(pc>4095) pc = pc % 4096;         //TOY can only address 12 Bit
+        if(pc>4095) pc = pc % 4096;         //TOY_CPU can only address 12 Bit
 
         //Handele user output
         printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
@@ -54,7 +54,12 @@ int main(int argc, char *argv[])
         {
             if(quit == 'c') makeHexDump(true,ram);
                 
-            else if(quit == 'q') run = false;
+            else if(quit == 'q') 
+            {
+                run = false;
+                printf("\nThis is an interpreter for the Koopman_TOY_CPU by\n"
+                        "\tmichael.krause@uni-leipzig.de\n\n");
+            }
         }
     }
     return 0;
