@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
                                                     //(-1 in case of error, 
                                                     //else number of correct read worts)
 
-    while(run && pc<(RAM_SIZE-1))
+    while(run)
     {
         ir = ram[pc];                       //get instruction from RAM
         op_code = get_opcode(ir);           //determine the instruction form
