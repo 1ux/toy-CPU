@@ -1,11 +1,11 @@
 # Koopman TOY CPU Interpreter 
 
 This is a CPU interpreter, based on the specification of Phil Koopmans paper: "Microcoded Versus Hard-wired Control".<br>
-For more details, please see in /doc.
+For more details, have a look at /doc.
 
 ##  Build
 
-The project can be built using `make`.
+The project can be built by using `make`.
 
 ## Usage 
 
@@ -53,5 +53,5 @@ Example: 0001000000001010 on RAM position 0 <br>
 
 ## Licence
 
-This program by Michael Krause is licenced under the terms of the GPLv3.
+This program by Michael Krause is licenced under the terms of the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html).
 
