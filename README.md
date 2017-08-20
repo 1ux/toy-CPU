@@ -1,12 +1,19 @@
 # Koopman TOY CPU Interpreter 
 
 This is a CPU interpreter, based on the specification of Phil Koopmans paper: "Microcoded Versus Hard-wired Control".<br>
+For more details, please see in /doc.
 
 ##  Build
 
 The project can be built using `make`.
 
 ## Usage 
+
+Pass the RAM content to the machine via a text file.<br>
+The program call is: `toy_cpu` SOURCE.toy<br>
+The following is the specification for a 16 BIT machine word. With it, you can create the RAM content.<br>
+(Do not forget: this is a pure John von Neumann architecture, data and program in the same memory)<br>
+
 
 <pre>
 OP_Code 0 (0000b):	   STORE<12 BIT ADDRESS>
