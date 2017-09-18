@@ -1,7 +1,7 @@
 #include "toy.h"
 #include "./debug/debug.h"
 
-#include<assert.h>
+#include <assert.h>
 
 #ifndef NDEBUG
     #define DEBUG 
@@ -14,12 +14,12 @@ int main(int argc, char *argv[])
     uint16_t    ir=0;           //Instruction Register
     uint8_t     op_code;        //CPU Operation Code
     uint16_t    pc = 0;         //Program Counter
-    int         data_addr=0;    //Adress of the 2nd operator (1. is ACCU)
+    int         data_addr=0;    //Adress of the 2nd operand (1. is ACCU)
     int         quit='n';       //Helper for program-flow exit (not part of CPU)
     bool        run = true;     //CPU halt and reset.(make better a coredamp befor)
 
     printf("\n+++++++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
-    " wite %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+    " with %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
     ,(sizeof(ram)/sizeof(ram[0])),sizeof(ram[0])*8);
     
     if(initialise_ram(ram,argc,argv)==-1) return 1; //load data from command line into RAM
@@ -41,9 +41,10 @@ int main(int argc, char *argv[])
 
         //CPU control flow
         if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says 
-            pc=find_data(ram[pc]); 
+            pc=find_data(ir);
         else pc++; 
-        if(pc>4095) pc = pc % 4096;         //TOY_CPU can only address 12 Bit
+
+        if(pc>=RAM_SIZE) pc %= RAM_SIZE;         //TOY_CPU can only address 12 Bit
 
         //Handele user output
         printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
             else if(quit == 'q') 
             {
                 run = false;
-                printf("\nThis is an interpreter for the Koopman_TOY_CPU by\n"
+                printf("\nThis is an interpreter for the "CPU_TYPE" by\n"
                         "\tmichael.krause@uni-leipzig.de\n\n");
             }
         }

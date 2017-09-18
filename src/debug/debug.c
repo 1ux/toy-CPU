@@ -38,7 +38,7 @@ void makeHexDump(bool base_2, uint16_t ram[])
         return;
     }
 
-    if(!(fp=fopen(timestamp,"wb")))
+    if(NULL==(fp=fopen(timestamp,"w")))
     {
         fprintf(stderr,"File system access failed, hexdump canceled\n");
         return;
@@ -48,7 +48,8 @@ void makeHexDump(bool base_2, uint16_t ram[])
         for(int i=0; i<RAM_SIZE; i++) fprintBits(sizeof(uint16_t),ram+i,fp);
     }
     else
-        for(int i=1; i<=RAM_SIZE; i++) fprintf(fp,"%X\n",ram[i]);
-
+    {
+        for(int i=0; i<RAM_SIZE; i++) fprintf(fp,"%X\n",ram[i]);
+    }
     fclose(fp);
 }

@@ -64,7 +64,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
       return -1;
     }
 
-    if(!(fp=fopen(argv[1],"rb")))
+    if(NULL==(fp=fopen(argv[1],"r")))
     {
         fprintf(stderr,"%s","open input stream fault !\n");
         return -1;
@@ -81,6 +81,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
             if(tempS[i]!='1' && tempS[i]!='0' && i<CPU_WORD_SIZE)
             {
                 fprintf(stderr,"%s","input file corrupted\n");
+                fclose(fp);
                 return -1;
             }
         }
