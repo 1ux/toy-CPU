@@ -1,5 +1,8 @@
+#include <stdio.h>
+#include <inttypes.h>
+#include <stdbool.h>
 #include "toy.h"
-#include "./debug/debug.h"
+#include "helper.h"
 
 #include <assert.h>
 
@@ -28,9 +31,9 @@ int main(int argc, char *argv[])
 
     while(run)
     {
-        ir = ram[pc];                       //get instruction from RAM
-        op_code = get_opcode(ir);           //determine the instruction form
-        data_addr=find_data(ir);            //locate the 2nd operand (ignord from OP_Code 8 to 15)
+        ir = ram[pc];        				//get instruction from RAM
+        op_code = get_opcode(ir);			//determine the instruction form
+        data_addr=get_data(ir);				//locate the 2nd operand (ignord from OP_Code 8 to 15)
 
         //Handele user output
         printf("\ninstruction: ");
@@ -41,26 +44,24 @@ int main(int argc, char *argv[])
 
         //CPU control flow
         if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says 
-            pc=find_data(ir);
+            pc=get_data(ir);
         else pc++; 
 
-        if(pc>=RAM_SIZE) pc %= RAM_SIZE;         //TOY_CPU can only address 12 Bit
+        if(pc>=RAM_SIZE) pc %= RAM_SIZE;	//TOY_CPU can only address 12 Bit
 
         //Handele user output
         printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
         printf("\x1b[32m \n(n)ext step or (q)uit or (c)oredump ?\n \x1b[0m");
 
-        //handel program flow
-        while((quit = getchar()) != '\n' && quit != EOF)
+        //handle program flow
+        while((quit = getchar()) != '\n')
         {
-            if(quit == 'c') makeHexDump(true,ram);
-                
-            else if(quit == 'q') 
-            {
-                run = false;
-                printf("\nThis is an interpreter for the "CPU_TYPE" by\n"
-                        "\tmichael.krause@uni-leipzig.de\n\n");
-            }
+			switch(quit)
+			{
+				case EOF: break;
+				case 'c': makeHexDump(true,ram); break;
+				case 'q': run = false;
+			}
         }
     }
     return 0;

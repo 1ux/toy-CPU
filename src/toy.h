@@ -1,22 +1,57 @@
 #ifndef TOY_H
 #define TOY_H
 
-#include <stdio.h>
-#include <inttypes.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
 #define CPU_TYPE "Koopman_TOY_CPU"
 #define RAM_SIZE 4096 
 #define CPU_WORD_SIZE 16
 
 
+/**
+* print_instructionSet(): print the cpu instruction set
+* This is a user help function, can be activated via 
+* the -h paramter.
+* Return: none 
+*/
+
 void print_instructionSet(void);
+
+/**
+* initialise_ram(): read inputstream into the toy-ram
+* Return: 
+*	the number of successfully read machine words, 
+*	-1 in case of error
+*/ 
+
 int initialise_ram(uint16_t *ram, int argc, char **argv ); 
+
+/**
+* get_opcode(): segments the mashine code in the OP-Code
+* Return: 4 bit OP-Code
+*/
+
 uint8_t get_opcode(uint16_t instruction);
-uint16_t find_data(uint16_t instruction);
+
+/**
+* get_data(): get the addressed data from the RAM
+* Return: the 12 bit data address
+*/
+
+uint16_t get_data(uint16_t instruction);
+
+/**
+* get2compl(): interpret the transfer value as tow's complement
+* Return: tow's complement value between -255 and 254
+*/
+
 int get2compl(uint16_t value); //not good place for something!
+
+/**
+* execute(): execute the toy-CPU instruction
+* This function implements the CPU instruction set,
+* use print_instructionSet() for an overview.
+* Return: true if there is a jump
+*/
+
 bool execute(uint8_t op_code, int data_addr,uint16_t *ram);
 
 #endif

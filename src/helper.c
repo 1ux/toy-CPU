@@ -1,6 +1,8 @@
-#include "debug.h"
-#include "../toy.h"
+#include <stdio.h>
+#include <inttypes.h>
+#include <stdbool.h>
 #include <time.h>
+#include "toy.h"
 
 //assumes little endian
 //stackoverflow.com/questions/111928

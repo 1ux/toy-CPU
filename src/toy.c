@@ -1,3 +1,9 @@
+#include <stdio.h> 
+#include <inttypes.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "toy.h"
 
 void print_instructionSet(void)
@@ -35,16 +41,15 @@ void print_instructionSet(void)
             "\tmichael.krause@uni-leipzig.de\n");
 }
 
-//gibt Anzahl der erfolgreich gelesenen Maschinenworte zurück(-1 im Fehlerfall).
 int initialise_ram(uint16_t *ram, int argc, char **argv )
 {
 
-    //open Input Stream
+    //open and check the input stream
     FILE *fp;
-    int j=0;
+    int j=0,int_cache=0;
     char tempS[CPU_WORD_SIZE+1]; //+1 for "\0"	
 
-    for(int i=0;i<RAM_SIZE;i++) ram[i]=0;
+    for(int i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialize the toy-RAM with NULL
 
     if(argc<2) 
     {
@@ -69,29 +74,38 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
         fprintf(stderr,"%s","open input stream fault !\n");
         return -1;
     }
-    
-    // initialise Toy-RAM
 
-    do
-    {
-        for(int i=0;i<=CPU_WORD_SIZE;i++)
-        {
-            tempS[i]=fgetc(fp);
-            if(tempS[0]==EOF) break;
-            if(tempS[i]!='1' && tempS[i]!='0' && i<CPU_WORD_SIZE)
-            {
-                fprintf(stderr,"%s","input file corrupted\n");
-                fclose(fp);
-                return -1;
-            }
-        }
-        tempS[CPU_WORD_SIZE]='\0';
-        ram[j]=strtoul(tempS,NULL,2);
-        j++;
-    }while(tempS[0]!=EOF);
+	// Fill the toy-RAM with data and break in case of error
+	for(;;) 						
+	{
+		for(int i = 0;i <= CPU_WORD_SIZE;i++)
+		{
+			int_cache = fgetc(fp);
 
+			if((int_cache =='\n' && i<CPU_WORD_SIZE) || (feof(fp) && i!=0)) 
+			{
+				fprintf(stderr,"%s","input file has incorrect machine-word size !\n");
+				fclose(fp);
+				return -1;
+			}
+
+			if(feof(fp)) break;
+
+			if((int_cache != '1' && int_cache != '0' && int_cache != '\n') || j >= RAM_SIZE )
+			{
+				fprintf(stderr,"%s","input file corrupted\n");
+				fclose(fp);
+				return -1;
+			}
+			tempS[i] = int_cache;
+		}
+		if(feof(fp)) break;
+		tempS[CPU_WORD_SIZE] = '\0'; 		//replace \n by \0
+		ram[j] = strtoul(tempS,NULL,2);
+		j++;
+	}
     fclose(fp);
-    return j-1;
+    return j;
 }
 
 uint8_t get_opcode(uint16_t instruction)
@@ -101,7 +115,7 @@ uint8_t get_opcode(uint16_t instruction)
     return opcode;
 }
 
-uint16_t find_data(uint16_t instruction)
+uint16_t get_data(uint16_t instruction)
 {
     uint16_t operand;
     operand = instruction & 4095;
@@ -110,7 +124,7 @@ uint16_t find_data(uint16_t instruction)
 
 int get2compl(uint16_t value)
 {
-    int sign_value = value;
+    int32_t sign_value = value;
     if(value>32767)
     {
         value=(~value)+1;
@@ -129,7 +143,7 @@ bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump if true
     {
         case 0: ram[data_addr] = accu;              break; //STORE
         case 1: accu = ram[data_addr];              break; //LOAD
-        case 2: jump = ((accu==0) ? true : false);  break; //JMPZ
+		case 2: jump = (accu == 0);					break; //JMP
         case 3: accu = accu + ram[data_addr];       break; //ADD
         case 4: accu = accu - ram[data_addr];       break; //SUB
         case 5: accu = accu | ram[data_addr];       break; //OR
