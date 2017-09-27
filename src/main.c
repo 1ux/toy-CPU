@@ -7,7 +7,7 @@
 #include <assert.h>
 
 #ifndef NDEBUG
-    #define DEBUG 
+    #define DEBUG
 #endif
 
 
@@ -24,9 +24,9 @@ int main(int argc, char *argv[])
     printf("\n+++++++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
     " with %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
     ,(sizeof(ram)/sizeof(ram[0])),sizeof(ram[0])*8);
-    
+
     if(initialise_ram(ram,argc,argv)==-1) return 1; //load data from command line into RAM
-                                                    //(-1 in case of error, 
+                                                    //(-1 in case of error,
                                                     //else number of correct read worts)
 
     while(run)
@@ -43,9 +43,9 @@ int main(int argc, char *argv[])
         printf("\ninstruction result:\n");
 
         //CPU control flow
-        if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says 
+        if(execute(op_code,data_addr,ram))  //EXECUTE instruction, jump if ALU says
             pc=get_data(ir);
-        else pc++; 
+        else pc++;
 
         if(pc>=RAM_SIZE) pc %= RAM_SIZE;	//TOY_CPU can only address 12 Bit
 

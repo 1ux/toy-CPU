@@ -47,13 +47,13 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     //open and check the input stream
     FILE *fp;
     int j=0,int_cache=0;
-    char tempS[CPU_WORD_SIZE+1]; //+1 for "\0"	
+    char tempS[CPU_WORD_SIZE+1]; //+1 for "\0
 
     for(int i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialize the toy-RAM with NULL
 
-    if(argc<2) 
+    if(argc<2)
     {
-        fprintf(stderr,"%s","no \".toy\" input file!\n" 
+        fprintf(stderr,"%s","no \".toy\" input file!\n"
                 "interpretation terminated. (press -h for help)\n");
         return -1;
     }
@@ -76,13 +76,13 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     }
 
 	// Fill the toy-RAM with data and break in case of error
-	for(;;) 						
+	for(;;)
 	{
 		for(int i = 0;i <= CPU_WORD_SIZE;i++)
 		{
 			int_cache = fgetc(fp);
 
-			if((int_cache =='\n' && i<CPU_WORD_SIZE) || (feof(fp) && i!=0)) 
+			if((int_cache =='\n' && i<CPU_WORD_SIZE) || (feof(fp) && i!=0))
 			{
 				fprintf(stderr,"%s","input file has incorrect machine-word size !\n");
 				fclose(fp);
@@ -129,7 +129,7 @@ int get2compl(uint16_t value)
     {
         value=(~value)+1;
         sign_value = value*(-1);
-    }    
+    }
     return sign_value;
 }
 

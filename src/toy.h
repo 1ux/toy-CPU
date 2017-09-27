@@ -2,27 +2,27 @@
 #define TOY_H
 
 #define CPU_TYPE "Koopman_TOY_CPU"
-#define RAM_SIZE 4096 
+#define RAM_SIZE 4096
 #define CPU_WORD_SIZE 16
 
 
 /**
 * print_instructionSet(): print the cpu instruction set
-* This is a user help function, can be activated via 
+* This is a user help function, can be activated via
 * the -h paramter.
-* Return: none 
+* Return: none
 */
 
 void print_instructionSet(void);
 
 /**
 * initialise_ram(): read inputstream into the toy-ram
-* Return: 
-*	the number of successfully read machine words, 
+* Return:
+*	the number of successfully read machine words,
 *	-1 in case of error
-*/ 
+*/
 
-int initialise_ram(uint16_t *ram, int argc, char **argv ); 
+int initialise_ram(uint16_t *ram, int argc, char **argv );
 
 /**
 * get_opcode(): segments the mashine code in the OP-Code
