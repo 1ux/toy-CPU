@@ -6,6 +6,8 @@
 #define CPU_WORD_SIZE 16
 
 
+extern const uint16_t * const ACCU; //read only access to accu
+
 /**
 * print_instructionSet(): print the cpu instruction set
 * This is a user help function, can be activated via
@@ -37,13 +39,6 @@ uint8_t get_opcode(uint16_t instruction);
 */
 
 uint16_t get_data(uint16_t instruction);
-
-/**
-* get2compl(): interpret the transfer value as tow's complement
-* Return: tow's complement value between -255 and 254
-*/
-
-int get2compl(uint16_t value); //not good place for something!
 
 /**
 * execute(): execute the toy-CPU instruction

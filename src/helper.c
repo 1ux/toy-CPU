@@ -4,6 +4,17 @@
 #include <time.h>
 #include "toy.h"
 
+int32_t get2compl(uint16_t value)
+{
+    int32_t sign_value = value;
+    if(value>32767)
+    {
+        value=(~value)+1;
+        sign_value = value*(-1);
+    }
+    return sign_value;
+}
+
 //assumes little endian
 //stackoverflow.com/questions/111928
 void fprintBits(size_t const size, void const * const ptr, FILE *file_pointer)

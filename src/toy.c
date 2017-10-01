@@ -1,4 +1,4 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include <inttypes.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -122,28 +122,18 @@ uint16_t get_data(uint16_t instruction)
     return operand;
 }
 
-int get2compl(uint16_t value)
-{
-    int32_t sign_value = value;
-    if(value>32767)
-    {
-        value=(~value)+1;
-        sign_value = value*(-1);
-    }
-    return sign_value;
-}
-
+static uint16_t accu;
+const uint16_t * const ACCU = &accu;
 
 bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump if true
 {
-   static uint16_t accu;
    bool jump=false;
 
     switch(op_code)
     {
         case 0: ram[data_addr] = accu;              break; //STORE
         case 1: accu = ram[data_addr];              break; //LOAD
-		case 2: jump = (accu == 0);					break; //JMP
+	case 2: jump = (accu == 0);		    break; //JMP
         case 3: accu = accu + ram[data_addr];       break; //ADD
         case 4: accu = accu - ram[data_addr];       break; //SUB
         case 5: accu = accu | ram[data_addr];       break; //OR
@@ -158,7 +148,6 @@ bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump if true
         case 14: ;                                  break; //NOP
         case 15: ;                                  break; //NOP
     }
-        printf("ACCU: %d\n",get2compl(accu));  // not good place for it !
         return jump;
 }
 
