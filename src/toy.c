@@ -46,10 +46,11 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
     //open and check the input stream
     FILE *fp;
-    int j=0,int_cache=0;
+    int int_cache=0;
+    size_t j=0;
     char tempS[CPU_WORD_SIZE+1]; //+1 for "\0
 
-    for(int i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialize the toy-RAM with NULL
+    for(size_t i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialize the toy-RAM with NULL
 
     if(argc<2)
     {
