@@ -5,7 +5,7 @@ LDFLAGs =
 DEBUG = -DNDEBUG 
 
 
-VPATH = src src/debug
+VPATH = src
 #--------------Linker-Part-----------------
 toy_cpu : main.o toy.o helper.o
 	echo $@ is now linked

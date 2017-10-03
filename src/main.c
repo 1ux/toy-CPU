@@ -32,13 +32,16 @@ int main(int argc, char *argv[])
     {
         ir = ram[pc];        				//get instruction from RAM
         op_code = get_opcode(ir);			//determine the instruction form
-        data_addr=get_data(ir);				//locate the 2nd operand (ignord from OP_Code 8 to 15)
-
+        data_addr=get_data(ir);				/*locate the 2nd operand
+                                                        (ignord from OP_Code 8 to 15)*/
         //handle user output
-        printf("\ninstruction: ");
+        printf("\ninstruction:\t");
         fprintBits(sizeof(*ram), ram+pc,stdout);
-        printf("OP Code: %"PRIu8"\t",op_code);
-        printf("Adresse: %"PRIu16"\n",data_addr);
+        printf("OP CODE: %"PRIu8"\tmeans: ",op_code);
+        print_instruction(op_code);
+        printf("address: %"PRIu16"\tcontent:%"
+                PRIu16"\n",data_addr,ram[data_addr]);
+        printf("RAM position:\t%"PRIu16"\n",pc);
         printf("\ninstruction result:\n");
 
         //CPU control flow
@@ -50,8 +53,9 @@ int main(int argc, char *argv[])
 
         //handle user output
         printf("ACCU: %d\n",get2compl(*ACCU));
-        printf("PROGRAM COUNTER: %" PRIu16 "\n",pc);
-        printf("\x1b[32m \n(n)ext step or (q)uit or (c)oredump ?\n \x1b[0m");
+        printf("PROGRAM COUNTER: %" PRIu16
+                "\n-----------------------------------",pc);
+        printf("\n(n)ext step or (q)uit or (c)oredump ?\n");
 
         //handle program flow
         while((quit = getchar()) != '\n')

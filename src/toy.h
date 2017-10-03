@@ -18,6 +18,13 @@ extern const uint16_t * const ACCU; //read only access to accu
 void print_instructionSet(void);
 
 /**
+* print_instruction(): converts a OP-Code into a human word.
+* Return: none
+*/
+
+void print_instruction(uint8_t opcode);
+
+/**
 * initialise_ram(): reads inputstream into the toy-ram.
 * Return:
 *	the number of successfully read machine words,

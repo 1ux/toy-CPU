@@ -41,6 +41,30 @@ void print_instructionSet(void)
             "\tmichael.krause@uni-leipzig.de\n");
 }
 
+void print_instruction(uint8_t opcode)
+{
+    opcode%=16;
+    switch(opcode)
+    {
+        case 0: printf("STORE\n");  break;
+        case 1: printf("LOAD\n");   break;
+	case 2: printf("JMP\n");    break;
+        case 3: printf("ADD\n");    break;
+        case 4: printf("SUB\n");    break;
+        case 5: printf("OR\n");     break;
+        case 6: printf("AND\n");    break;
+        case 7: printf("XOR\n");    break;
+        case 8: printf("NOT\n");    break;
+        case 9: printf("INC\n");    break;
+        case 10: printf("DEC\n");   break;
+        case 11: printf("ZERO\n");  break;
+        case 12: printf("NOP\n");   break;
+        case 13: printf("NOP\n");   break;
+        case 14: printf("NOP\n");   break;
+        case 15: printf("NOP\n");   break;
+    }
+}
+
 int initialise_ram(uint16_t *ram, int argc, char **argv )
 {
 
