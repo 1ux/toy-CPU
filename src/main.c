@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
     uint16_t    ir=0;           //Instruction Register
     uint8_t     op_code;        //CPU Operation Code
     uint16_t    pc = 0;         //Program Counter
-    uint16_t    data_addr=0;    //Adress of the 2nd operand (1. is ACCU)
+    uint16_t    data_addr=0;    //Address of the 2nd operand (1. is ACCU)
     int         quit='n';       //Helper for program-flow exit (not part of CPU)
-    bool        run = true;     //CPU halt and reset.(make better a coredamp befor)
+    bool        run = true;     //CPU halt and reset.(Nb: make a coredump beforehand)
 
     printf("\n+++++++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
     " with %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
@@ -27,13 +27,13 @@ int main(int argc, char *argv[])
 
     if(initialise_ram(ram,argc,argv)==-1) return 1;     /*load data from command line into RAM
                                                         (-1 in case of error,
-                                                        else number of correct read worts)*/
+                                                        else number of correctly read words)*/
     while(run)
     {
         ir = ram[pc];        				//get instruction from RAM
         op_code = get_opcode(ir);			//determine the instruction form
         data_addr=get_data(ir);				/*locate the 2nd operand
-                                                        (ignord from OP_Code 8 to 15)*/
+                                                        (undefined for OP_Codes 8 to 15)*/
         //handle user output
         printf("\ninstruction:\t");
         fprintBits(sizeof(*ram), ram+pc,stdout);
@@ -45,11 +45,11 @@ int main(int argc, char *argv[])
         printf("\ninstruction result:\n");
 
         //CPU control flow
-        if(execute(op_code,data_addr,ram))              //EXECUTE instruction, jump if ALU says
+        if(execute(op_code,data_addr,ram))              //EXECUTE instruction,jump on ALU
             pc=get_data(ir);
         else pc++;
 
-        if(pc>=RAM_SIZE) pc %= RAM_SIZE;	        //TOY_CPU can only address 12 Bit
+        if(pc>=RAM_SIZE) pc %= RAM_SIZE;	        //TOY_CPU can only address 12 bits
 
         //handle user output
         printf("ACCU: %d\n",get2compl(*ACCU));

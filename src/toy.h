@@ -11,7 +11,7 @@ extern const uint16_t * const ACCU; //read only access to accu
 /**
 * print_instructionSet(): prints the cpu instruction set.
 * This is a user help function and can be activated via
-* the -h paramter.
+* the -h parameter.
 * Return: none
 */
 
@@ -25,7 +25,7 @@ void print_instructionSet(void);
 void print_instruction(uint8_t opcode);
 
 /**
-* initialise_ram(): reads inputstream into the toy-ram.
+* initialise_ram(): reads input stream into the toy-ram.
 * Return:
 *	the number of successfully read machine words,
 *	-1 in case of error.
@@ -34,22 +34,22 @@ void print_instruction(uint8_t opcode);
 int initialise_ram(uint16_t *ram, int argc, char **argv );
 
 /**
-* get_opcode(): segments the mashine code in the OP-Code.
-* Return: 4 bit OP-Code.
+* get_opcode(): segments machine code as OP-Code.
+* Return: 4-bit OP-Code.
 */
 
 uint8_t get_opcode(uint16_t instruction);
 
 /**
-* get_data(): gets the addressed data from the RAM.
-* Return: the 12 bit data address.
+* get_data(): gets the addressed data from RAM.
+* Return: the 12-bit data address.
 */
 
 uint16_t get_data(uint16_t instruction);
 
 /**
 * execute(): executes the toy-CPU instruction.
-* This function implements the CPU instruction set,
+* This function implements the CPU instruction set;
 * use print_instructionSet() for an overview.
 * Return: true if there is a jump.
 */

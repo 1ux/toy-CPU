@@ -32,10 +32,10 @@ void print_instructionSet(void)
             "\t|  OP-CODE  |\t\tADDRESS\t      |\n"
             "\t---------------------------------------\n\n");
     printf("This machine has the following registers:\n"
-            "16 BIT Instruction Register(4 BIT OP, 12 BIT Adr)\n"
+            "16 BIT Instruction Register(4 BIT OP, 12 BIT Addr)\n"
             "16 BIT Accumulator\n"
             "12 BIT Program Counter\n\n");
-    printf("Example: 0001000000001010 on RAM position 0\n"
+    printf("Example: 0001000000001010 at RAM position 0\n"
             "0001 means: LOAD the content of ADDRESS 000000001010 into the ACCU\n\n");
     printf("This is an interpreter for the Koopman_TOY_CPU by\n"
             "\tmichael.krause@uni-leipzig.de\n");
@@ -68,13 +68,13 @@ void print_instruction(uint8_t opcode)
 int initialise_ram(uint16_t *ram, int argc, char **argv )
 {
 
-    //open and check the input stream
+    //opens and checks the input stream
     FILE *fp;
     int int_cache=0;
     size_t j=0;
     char tempS[CPU_WORD_SIZE+1]; //+1 for "\0
 
-    for(size_t i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialize the toy-RAM with NULL
+    for(size_t i=0;i<RAM_SIZE;i++) ram[i]=0;	//initialise the toy-RAM with NULL
 
     if(argc<2)
     {
@@ -96,7 +96,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
     if(NULL==(fp=fopen(argv[1],"r")))
     {
-        fprintf(stderr,"%s","open input stream fault !\n");
+        fprintf(stderr,"%s","open input stream error !\n");
         return -1;
     }
 
@@ -109,7 +109,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 
 			if((int_cache =='\n' && i<CPU_WORD_SIZE) || (feof(fp) && i!=0))
 			{
-				fprintf(stderr,"%s","input file has incorrect machine-word size !\n");
+				fprintf(stderr,"%s","input file has word length error(s) !\n");
 				fclose(fp);
 				return -1;
 			}
@@ -125,7 +125,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
 			tempS[i] = int_cache;
 		}
 		if(feof(fp)) break;
-		tempS[CPU_WORD_SIZE] = '\0'; 		//replace \n by \0
+		tempS[CPU_WORD_SIZE] = '\0'; 		//replace \n with \0
 		ram[j] = strtoul(tempS,NULL,2);
 		j++;
 	}
