@@ -45,7 +45,7 @@ void makeHexDump(bool base_2, uint16_t ram[])
 
     time(&timer);
     tm_timer=localtime(&timer);
-    if(strftime(timestamp,sizeof(timestamp),"coredump_%d_%b_%y_%T.toy",tm_timer)==0)
+    if(strftime(timestamp,sizeof(timestamp),"coredump_%d_%b_%y_%H-%M-%S.toy",tm_timer)==0)
     {
         fprintf(stderr,"Buffer for system-time fault! hexdump canceled\n");
         return;

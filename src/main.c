@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     bool        run = true;     //CPU halt and reset.(Nb: make a coredump beforehand)
 
     printf("\n+++++++++++++++++++++++++++++++++++++++++++++++\n+Boot: "CPU_TYPE
-    " with %zu x %zu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
-    ,(sizeof(ram)/sizeof(ram[0])),sizeof(ram[0])*8);
+    " with %lu x %lu Bit RAM.+\n+++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+    ,(unsigned long)(sizeof(ram)/sizeof(ram[0])),(unsigned long)sizeof(ram[0])*8);
 
     if(initialise_ram(ram,argc,argv)==-1) return 1;     /*load data from command line into RAM
                                                         (-1 in case of error,
