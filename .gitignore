@@ -1,4 +1,4 @@
 *.o
 /*.toy
 /coredump*
-toy_cpu
+toy-CPU

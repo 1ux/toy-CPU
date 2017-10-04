@@ -7,7 +7,7 @@ DEBUG = -DNDEBUG
 
 VPATH = src
 #--------------Linker-Part-----------------
-toy_cpu : main.o toy.o helper.o
+toy-CPU : main.o toy.o helper.o
 	echo $@ is now linked
 	$(CC) $(LDFLAGS) -o $@ $^
 #--------------Compiler-Part---------------

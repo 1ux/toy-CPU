@@ -9,10 +9,10 @@ The project can be built by using `make`.
 
 ## Usage 
 
-Pass the RAM content to the machine via a text file.<br>
+Transfer the RAM content to the machine via a text file.<br>
 The program call is: `toy_cpu` SOURCE.toy<br>
 The following is the specification for a 16 BIT machine word. With it, you can create the RAM content.<br>
-(Do not forget: this is a pure John von Neumann architecture, data and program in the same memory)<br>
+(Do not forget: this is a pure John von Neumann architecture, data and program are in the same memory)<br>
 
 
 <pre>
@@ -43,11 +43,11 @@ BIT |15 14 13 12|11 10 9 8 7 6 5 4 3 2 1 0|
 
 This machine has the following registers:
 
-* 16 BIT Instruction Register (4 BIT OP, 12 BIT Adr)
+* 16 BIT Instruction Register (4 BIT OP, 12 BIT Addr)
 * 16 BIT Accumulator
 * 12 BIT Program Counter
 
-Example: 0001000000001010 on RAM position 0 <br>
+Example: 0001000000001010 at RAM position 0 <br>
 0001 means: LOAD the content of ADDRESS 000000001010 into the ACCU
 
 

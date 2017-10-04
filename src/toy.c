@@ -173,6 +173,6 @@ bool execute(uint8_t op_code, int data_addr, uint16_t *ram) // jump if true
         case 14: ;                                  break; //NOP
         case 15: ;                                  break; //NOP
     }
-        return jump;
+    return jump;
 }
 
