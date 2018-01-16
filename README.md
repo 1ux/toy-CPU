@@ -1,6 +1,6 @@
 # Koopman TOY CPU Interpreter 
 
-This is a CPU interpreter, based on the specification of Phil Koopmans paper: "Microcoded Versus Hard-wired Control".<br>
+This is a CPU interpreter, based on the specification of Phil Koopmans paper: [Microcoded Versus Hard-wired Control](https://users.ece.cmu.edu/~koopman/misc/byte87a.pdf).<br>
 For more details, have a look at /doc.
 
 ##  Build
