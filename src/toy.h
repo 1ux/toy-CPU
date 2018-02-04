@@ -18,6 +18,16 @@ extern const uint16_t * const ACCU; //read only access to accu
 void print_instructionSet(void);
 
 /**
+* print_instructionSet(): prints the cpu architecture.
+* This is a user help function and can be activated via
+* the -i parameter.
+* Return: none
+*/
+
+
+void print_architecture(void);
+
+/**
 * print_instruction(): converts a OP-Code into a human word.
 * Return: none
 */

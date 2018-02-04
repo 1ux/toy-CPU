@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
     if(initialise_ram(ram,argc,argv)==-1) return 1;     /*load data from command line into RAM
                                                         (-1 in case of error,
                                                         else number of correctly read words)*/
+
+    print_architecture();                               //print cpu architecture at startup
+
     while(run)
     {
         ir = ram[pc];        				//get instruction from RAM

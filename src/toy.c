@@ -41,6 +41,40 @@ void print_instructionSet(void)
             "\tmichael.krause@uni-leipzig.de\n");
 }
 
+void print_architecture(void)
+{ 
+    printf(
+"                       +---------------+                 +--------+\n"
+"                       |               |                 v        |\n"
+"          +------------v------------+  |              +--+-----+  |\n"
+"          | INSTRUCTION REGISTER(IR)|  |              |ACCU    |  |\n"
+"          +-------------------------+  |              |(16 BIT)|  |\n"
+"          ||OP-CODE || ADDRESS     ||  |              +--+-----+  |\n"
+"          ||(4 BIT) || (12 BIT)    ||  |                 |        |\n"
+"          |----+-----------+--------|  |                 |        |\n"
+"          +--- | --------- | -------+  +------|          |        |\n"
+"               |           |           |      v          v        |\n"
+"      +--------+  +--------+           |    +-+--+    +--+-+      |\n"
+"      |           |        |           |    |    +----+    |      |\n"
+"      v           |        v           |    |     ALU      |      |\n"
+"+-----+-------+   |   +----+--------+  |    ++  (16 BIT) +-+      |\n"
+"|             |   |   |     PC      |  |     ++         ++        |\n"
+"|CONTROL LOGIC|   |   |   12 BIT    |  |      +-------+-+         |\n"
+"|             |   |   |             |  |              |           |\n"
+"+-------------+   |   +-+-----------+  |              +-----------+\n"
+"                  |     |              |              v\n"
+"                  v     v              | +------------+----------+\n"
+"                +-++   ++-+            | |            DATA IN    |\n"
+"                |  +---+  |            +-+ DATA OUT              |\n"
+"                |   MUX   |              | +-------------------+ |\n"
+"                ++ 12 BIT++              | |4k WORDS OF 16 BITS| |\n"
+"                 +---+---+               | +-------------------+ |\n"
+"                     |                   |                       |\n"
+"                     +------------------ > ADDR                  |\n"
+"                                         +-----------------------+\n"
+"\n");
+}
+
 void print_instruction(uint8_t opcode)
 {
     opcode%=16;
@@ -92,6 +126,13 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     {
       print_instructionSet();
       return -1;
+    }
+
+    if(strcmp(argv[1],"-i")==0)
+    {
+        printf("interpretation terminated.\n\n");
+        print_architecture();
+        return -1;
     }
 
     if(NULL==(fp=fopen(argv[1],"r")))
