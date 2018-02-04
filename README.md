@@ -6,6 +6,7 @@ For more details, have a look at /doc.
 ##  Build
 
 The project can be built by using `make`.
+You do not need dependencies. This is standard C99 code.
 
 ## Usage 
 
