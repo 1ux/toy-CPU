@@ -28,9 +28,6 @@ int main(int argc, char *argv[])
     if(initialise_ram(ram,argc,argv)==-1) return 1;     /*load data from command line into RAM
                                                         (-1 in case of error,
                                                         else number of correctly read words)*/
-
-    print_architecture();                               //print cpu architecture at startup
-
     while(run)
     {
         ir = ram[pc];        				//get instruction from RAM
@@ -57,19 +54,21 @@ int main(int argc, char *argv[])
         //handle user output
         printf("ACCU: %d\n",get2compl(*ACCU));
         printf("PROGRAM COUNTER: %" PRIu16
-                "\n-----------------------------------",pc);
-        printf("\n(n)ext step or (q)uit or (c)oredump ?\n");
+                "\n----------------------------------------",pc);
+        printf("\n|(n)ext step or (q)uit or (c)oredump ? ");
 
         //handle program flow
         while((quit = getchar()) != '\n')
         {
-			switch(quit)
-			{
-				case EOF: break;
-				case 'c': makeHexDump(true,ram); break;
-				case 'q': run = false;
-			}
+	    	switch(quit)
+		{
+		    case EOF: break;
+		    case 'c': makeHexDump(true,ram); break;
+		    case 'q': run = false;
+		}
         }
+
+        printf("----------------------------------------\n");
     }
     return 0;
 }

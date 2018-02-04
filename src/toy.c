@@ -113,7 +113,9 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
     if(argc<2)
     {
         fprintf(stderr,"%s","no \".toy\" input file!\n"
-                "interpretation terminated. (press -h for help)\n");
+                "interpretation terminated.\n\n"
+                "press toy-CPU -h for help\n"
+                "press toy-CPU -a for cpu architecture overview\n");
         return -1;
     }
     if(argc >2)
@@ -128,7 +130,7 @@ int initialise_ram(uint16_t *ram, int argc, char **argv )
       return -1;
     }
 
-    if(strcmp(argv[1],"-i")==0)
+    if(strcmp(argv[1],"-a")==0)
     {
         printf("interpretation terminated.\n\n");
         print_architecture();
