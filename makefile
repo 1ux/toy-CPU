@@ -1,7 +1,7 @@
 #-------------Makro-Part------------------
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c99 
-LDFLAGs =
+CFLAGS = -Os -Wall -pedantic -std=c99
+LDFLAGS = -static
 DEBUG = -DNDEBUG 
 
 
