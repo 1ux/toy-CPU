@@ -35,10 +35,11 @@ void print_instructionSet(void)
             "16 BIT Instruction Register(4 BIT OP, 12 BIT Addr)\n"
             "16 BIT Accumulator\n"
             "12 BIT Program Counter\n\n");
+    printf("Press ./toy_cpu -a for an overview of the cpu-architecture\n\n");
     printf("Example: 0001000000001010 at RAM position 0\n"
             "0001 means: LOAD the content of ADDRESS 000000001010 into the ACCU\n\n");
     printf("This is an interpreter for the Koopman_TOY_CPU by\n"
-            "\tmichael.krause@uni-leipzig.de\n");
+            "\tkrause@informatik.uni-leipzig.de\n");
 }
 
 void print_architecture(void)
