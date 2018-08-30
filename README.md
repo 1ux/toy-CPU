@@ -3,6 +3,12 @@
 This is a CPU interpreter, based on the specification of Phil Koopmans paper: [Microcoded Versus Hard-wired Control](https://users.ece.cmu.edu/~koopman/misc/byte87a.pdf).<br>
 For more details, have a look at /doc or press `toy_cpu -h` (for help) or `toy_cpu -a` (for cpu architecture overview)
 
+<table><tr>
+    <td> <img alt="Image of main window on linux" width="100%" src="doc/program_flow.png"> </td>
+    <td> <img alt="Image of main window on Windows" width="100%" src="doc/architectural_overview.png"> </td>
+</tr></table>
+
+
 ##  Build
 
 The project can be built by using `make`.<br>
