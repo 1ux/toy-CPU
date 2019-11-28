@@ -1,3 +1,5 @@
+*Es wird ja fleißig gearbeitet und viel programmiert, aber es müsste mal wieder einer einen gescheiten Gedanken haben. - abgeändert, ursprünglich von Rudolf Virchow*
+
 # Koopman TOY CPU Interpreter 
 
 This is a CPU interpreter, based on the specification of Phil Koopmans paper: [Microcoded Versus Hard-wired Control](https://users.ece.cmu.edu/~koopman/misc/byte87a.pdf).<br>
